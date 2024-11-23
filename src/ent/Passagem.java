@@ -9,22 +9,24 @@ public class Passagem {
     Executivo vooExecutivo;
     Integer assento;
   
-    public Passagem(Pessoa passageiro, Convencional vooConvecional, Integer assento) {
+    public Passagem(Pessoa passageiro, Convencional vooConvecional, Executivo vooExecutivo, Integer assento) {
 		super();
 		this.passageiro = passageiro;
 		this.vooConvencional = vooConvecional;
-		this.assento = assento;
-	}
-    
-	public Passagem(Pessoa passageiro, Executivo vooExecutivo, Integer assento) {
-		super();
-		this.passageiro = passageiro;
 		this.vooExecutivo = vooExecutivo;
 		this.assento = assento;
 	}
 	
 	public String getCpfPassageiro() {
 		return passageiro.getCpf();
+	}
+	
+	public int getCodigoConv() {
+		return vooConvencional.getCodigo();
+	}
+	
+	public int getCodigoExe() {
+		return vooExecutivo.getCodigo();
 	}
 
     public Integer getAssento() {
