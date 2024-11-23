@@ -23,7 +23,7 @@ public class Passagem {
 		this.assento = assento;
 	}
 	
-	public String getCpf() {
+	public String getCpfPassageiro() {
 		return passageiro.getCpf();
 	}
 
@@ -35,8 +35,11 @@ public class Passagem {
         this.assento = assento;
     }
 
-    @Override
-    public String toString() {
+    public String toStringConv() {
         return "*** PASSAGEM ***\n\n" + "Passageiro = " + passageiro.getNome() + "\nDecolagem: " + vooConvencional.getCidadeOrigem() + ", " + vooConvencional.getEstadoOrigem() + ", " + vooConvencional.getPaisOrigem() + "\nDesembarque: " + vooConvencional.getCidadeDestino() + ", " + vooConvencional.getEstadoDestino() + ", " + vooConvencional.getPaisDestino() + "\nAssento: " + assento + '\n';
+    }
+    
+    public String toStringExe() {
+        return "*** PASSAGEM ***\n\n" + "Passageiro = " + passageiro.getNome() + "\nDecolagem: " + vooExecutivo.getCidadeOrigem() + ", " + vooExecutivo.getEstadoOrigem() + ", " + vooExecutivo.getPaisOrigem() + "\nDesembarque: " + vooExecutivo.getCidadeDestino() + ", " + vooExecutivo.getEstadoDestino() + ", " + vooExecutivo.getPaisDestino() + "\nAssento: " + assento + '\n';
     }
 }
