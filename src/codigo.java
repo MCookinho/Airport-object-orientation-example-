@@ -12,9 +12,6 @@ public class codigo {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		limpadata = formato.parse("2000-11-11 10:10:10");
 		Pessoa pesstemp = new Pessoa(" ", " "," ");
-		Convencional convtemp = new Convencional(0, " ", " ", " ", " ", " ", " ", " ", limpadata, limpadata, 0);
-		Executivo exetemp = new Executivo(0, " ", " ", " ", " ", " ", " ", " ", limpadata, limpadata, 0, " ");
-		Passagem passtemp = new Passagem(pesstemp, exetemp, 3);
 		Integer assento;
 		String cpf, nome, email, companhia, paisOrigem, paisDestino, estadoOrigem, estadoDestino, cidadeOrigem, cidadeDestino, cardapio, chegadaStr, partidaStr;
 		float preco;
@@ -24,6 +21,9 @@ public class codigo {
 		ArrayList<Convencional> convencionais = new ArrayList<Convencional>();
 		ArrayList<Passagem> passagens = new ArrayList<Passagem>();
 		while(esc!=5) {
+			Convencional convtemp = new Convencional(0, " ", " ", " ", " ", " ", " ", " ", limpadata, limpadata, 0);
+			Executivo exetemp = new Executivo(0, " ", " ", " ", " ", " ", " ", " ", limpadata, limpadata, 0, " ");
+			Passagem passtemp = new Passagem(pesstemp, convtemp, exetemp, 3);
 		    System.out.println( "------OLA BEM VINDO AO PORTAL VIAGENS------" );
 		    System.out.println( "1- Cadastrar passageiro" );
 		    System.out.println( "2- Comprar passagem" );
@@ -53,14 +53,14 @@ public class codigo {
 		    	}  
 		    	System.out.print("\nExecutivos:\n");
 		    	for(int i = 0; i < executivos.size(); i++) {   
-		    	    System.out.println(executivos.get(i).getCodigo() + ": " +executivos.get(i).getCidadeOrigem() + " X " + executivos.get(i).getCidadeDestino() + "  -  " + executivos.get(i).getPartidaHorario()+ " = R$" + convencionais.get(i).getPreco() + "  -  CARDAPIO: " + executivos.get(i).getCardapio());
+		    	    System.out.println(executivos.get(i).getCodigo() + ": " +executivos.get(i).getCidadeOrigem() + " X " + executivos.get(i).getCidadeDestino() + "  -  " + executivos.get(i).getPartidaHorario()+ " = R$" + executivos.get(i).getPrecoBase() + "  -  CARDAPIO: " + executivos.get(i).getCardapio());
 		    	}  
 		    	
 		    	int bool = 0;
 		    	System.out.print("\n\nDIGITE SEU CPF: ");
 		    	cpf = scan.next();
 		    	for(int i = 0; i<passageiro.size(); i++) {
-		    		if(passageiro.get(i).getCpf() == cpf) {
+		    		if(passageiro.get(i).getCpf().equals(cpf)) {
 		    			pesstemp = passageiro.get(i);
 		    			bool=1;
 		    			break;
@@ -79,28 +79,27 @@ public class codigo {
 		    			if(escvoo==1) {
 		    				for(int i = 0; i<executivos.size(); i++) {
 		    		    		if(executivos.get(i).getCodigo() == codigo) {
-		    		    			Executivo vootemp = executivos.get(i);
+		    		    			bool = 1;
+		    		    			exetemp = executivos.get(i);
 		    		    			break;}}
 		    			}
 		    			if(escvoo==2) {
 		    				for(int i = 0; i<convencionais.size(); i++) {
 		    		    		if(convencionais.get(i).getCodigo() == codigo) {
-		    		    			Convencional vootemp = convencionais.get(i);
+		    		    			bool=1;
+		    		    			convtemp = convencionais.get(i);
 		    		    			break;}}
 		    			}
+		    			if(bool==1) {
 		    			System.out.print("\nDIGITE SEU ASSENTO: ");
 		    			assento = scan.nextInt();
 		    			for(int i = 0; i<passagens.size(); i++) {
-		    				if(passagens.get(i).getAssento() != assento && assento <= 410 && assento >= 1) {
-		    					bool=1;
-		    					if(escvoo==1) {
-		    					passtemp = new Passagem(pesstemp, exetemp, assento);}
-		    					if(escvoo==2) {
-		    					passtemp = new Passagem(pesstemp, convtemp, assento);}
-		    					break;
+		    				if(passagens.get(i).getAssento() == assento && assento > 410  && assento < 1) {
+		    					bool=0;
 		    				}
 		    			}
 		    			if(bool==1) {
+			    			passtemp = new Passagem(pesstemp,convtemp, exetemp,assento);
 		    				passagens.add(passtemp);
 		    				System.out.print("PASSAGEM COMPRADA!!!");
 		    			}
@@ -108,8 +107,11 @@ public class codigo {
 		    				System.out.print("-ASSENTO INVALIDO-");
 		    			}
 		    			}
+		    		else {
+		    			System.out.print("-CODIGO INVALIDO-");
+		    		}
 		    		
-		    	}
+		    	}}
 		    	else {
 		    		System.out.print("-CPF INVALIDO-");
 		    	}
@@ -119,10 +121,15 @@ public class codigo {
 		    if(esc==3) {
 		    	System.out.print("\n\nDIGITE SEU CPF: ");
 		    	cpf = scan.next();
+		    	System.out.print("\n\n--CONVENCIONAIS--\n");
 		    	for(int i=0; i<passagens.size(); i++) {
-		    		if(passagens.get(i).getCpf() == cpf) {
-		    			passagens.get(i).toString();
-		    		}
+		    		if(passagens.get(i).getCpfPassageiro().equals(cpf) && passagens.get(i).getCodigoConv() !=0) {
+		    			System.out.println(passagens.get(i).toStringConv());}
+		    	}
+		    	System.out.print("\n\n--EXECUTIVOS--\n");
+		    	for(int i=0; i<passagens.size(); i++) {
+		    		if(passagens.get(i).getCpfPassageiro().equals(cpf) && passagens.get(i).getCodigoExe() !=0) {
+		    			System.out.println(passagens.get(i).toStringExe());}
 		    	}
 		    }
 
@@ -146,8 +153,6 @@ public class codigo {
 		    		cidadeOrigem=scan.next();
 		    		System.out.print( "Digite a cidade de destino: " );
 		    		cidadeDestino=scan.next();
-		    		System.out.print( "Digite o preco: " );
-		    		preco=scan.nextFloat();
 		    		System.out.print( "Digite o preco: " );
 		    		preco=scan.nextFloat();
 		    		System.out.print( "Digite a data e horario de partida (yyyy-MM-dd HH:mm:ss): " );
