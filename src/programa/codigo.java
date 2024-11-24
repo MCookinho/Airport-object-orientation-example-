@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 public class codigo {
 	static public void main( String args[] ) throws ParseException {
-		int esc=0, codigo, senha, escvoo;
+		int esc=0, codigo, senha, escvoo, escadm;
 		Date partidaHorario, chegadaHorario, limpadata;
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		limpadata = formato.parse("2000-11-11 10:10:10");
@@ -94,7 +94,7 @@ public class codigo {
 		    			System.out.print("\nDIGITE SEU ASSENTO: ");
 		    			assento = scan.nextInt();
 		    			for(int i = 0; i<passagens.size(); i++) {
-		    				if(passagens.get(i).getAssento() == assento && assento > 410  && assento < 1) {
+		    				if(((escvoo == 1 && passagens.get(i).getCodigoExe() == codigo) || (escvoo == 2 && passagens.get(i).getCodigoConv() == codigo)) && passagens.get(i).getAssento() == assento || assento > 410  || assento < 1) {
 		    					bool=0;
 		    				}
 		    			}
@@ -137,6 +137,9 @@ public class codigo {
 		    	System.out.print( "DIGITE A SENHA: " );
 		    	senha = scan.nextInt();
 		    	if(senha == 6847) {
+		    		System.out.print( "DIGITE (1) PARA CRIAR VOO OU (2) PARA REMOVER: " );
+		    		escadm = scan.nextInt();
+		    		if(escadm == 1) {
 		    		System.out.print( "Digite o codigo do voo: " );
 		    		codigo=scan.nextInt();
 		    		System.out.print( "Digite a companhia: " );
@@ -177,6 +180,28 @@ public class codigo {
 		    		}
 		    		
 		    	}
+		    		if(escadm==2) {
+		    			System.out.print( "Digite se o voo eh executivo(1) ou convencional(2):" );
+		    			escvoo = scan.nextInt();
+		    			System.out.print( "Digite o codigo do voo que quer remover: " );
+		    			codigo = scan.nextInt();
+		    			if(escvoo==1) {
+		    				for(int i=0; i< executivos.size(); i++) {
+		    					if(executivos.get(i).getCodigo()==codigo) {
+		    						executivos.remove(i);
+		    					}
+		    				}
+		    			}
+		    			if(escvoo==2) {
+		    				for(int i=0; i< convencionais.size(); i++) {
+		    					if(convencionais.get(i).getCodigo()==codigo) {
+		    						convencionais.remove(i);
+		    					}
+		    				}
+		    			}
+			    		
+		    		}
+		    	}
 		    	else {
 		    		System.out.print( "--SENHA INVALIDA--");
 		    	}
@@ -185,6 +210,6 @@ public class codigo {
 		    
 		    System.out.println( "\n\n\n\n" );  
 		}
-		
+		scan.close();
 	  }
 }
