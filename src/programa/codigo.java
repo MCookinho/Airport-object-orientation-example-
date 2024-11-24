@@ -28,7 +28,7 @@ public class codigo {
 		    System.out.println( "1- Cadastrar passageiro" );
 		    System.out.println( "2- Comprar passagem" );
 		    System.out.println( "3- Buscar passagens" );
-		    System.out.println( "4- ADM add voos" );
+		    System.out.println( "4- ADM" );
 		    System.out.println( "5- Sair" );
 		    System.out.print( "Escolha: " );
 		    esc = scan.nextInt();
