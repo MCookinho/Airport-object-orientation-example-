@@ -48,14 +48,16 @@ public class Passagem implements  Busca {
     @Override
     public void buscarAtributosConv(String atributo) {
         if(passageiro.getCpf().equalsIgnoreCase(atributo)){
-            System.out.println(this.toStringConv());
+        	if(this.getCodigoConv()!=0) {
+            System.out.println(this.toStringConv());}
         }
     }
 
     @Override
     public void buscarAtributosExe(String atributo) {
         if(passageiro.getCpf().equalsIgnoreCase(atributo)){
-            System.out.println(this.toStringExe());
+        	if(this.getCodigoExe()!=0) {
+            System.out.println(this.toStringExe());}
         }
     }
 
