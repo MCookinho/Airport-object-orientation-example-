@@ -1,0 +1,32 @@
+[
+  {
+    "cpf": "1",
+    "nome": "Pedro Borges",
+    "email": "seila@gmail.com"
+  },
+  {
+    "cpf": "7",
+    "nome": "Goku",
+    "email": "Testandoaqui@gmail.teste"
+  },
+  {
+    "cpf": "8474",
+    "nome": "Luiz",
+    "email": "macarrao@zap.oi"
+  },
+  {
+    "cpf": "2",
+    "nome": "Eva",
+    "email": "Eva@gmail.com"
+  },
+  {
+    "cpf": "89",
+    "nome": "Paulinho",
+    "email": "Paulinho@zap.com"
+  },
+  {
+    "cpf": "347",
+    "nome": "Joca",
+    "email": "Joquinha.2@isso.com"
+  }
+]
